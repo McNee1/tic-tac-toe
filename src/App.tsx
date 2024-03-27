@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useState } from 'react';
 
 import reactLogo from './assets/react.svg';
@@ -10,7 +11,9 @@ function App() {
   return (
     <>
       <div>
-        <h1 className='text-3xl font-bold text-red-700 underline'>Hello world!</h1>
+        <h1 className={clsx('text-3xl font-bold text-red-700 underline')}>
+          Hello world!
+        </h1>
         <a
           href='https://vitejs.dev'
           rel='noreferrer'
