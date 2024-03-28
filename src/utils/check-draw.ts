@@ -1,3 +1,5 @@
+import { DRAW } from './const';
+
 export const checkDraw = (board: string[][], setWinner: (s: string) => void) => {
   let isDraw = true;
 
@@ -14,6 +16,6 @@ export const checkDraw = (board: string[][], setWinner: (s: string) => void) => 
   }
 
   if (isDraw) {
-    setWinner('draw');
+    setWinner(DRAW);
   }
 };

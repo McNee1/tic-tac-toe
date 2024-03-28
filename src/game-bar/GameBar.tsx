@@ -1,9 +1,11 @@
 import { Board } from '@/components/board/Board';
+import { WinnerTable } from '@/components/winner-table/WinnerTable';
 import { checkDraw } from '@/utils/check-draw';
 import { checkHorizontal } from '@/utils/check-horizontal';
 import { checkLeftDiagonal } from '@/utils/check-left-diagonal';
 import { checkRightDiagonal } from '@/utils/check-right-diagonal';
 import { checkVertical } from '@/utils/check-vertical';
+import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/const';
 import { useCallback, useEffect, useState } from 'react';
 
 const INIT_BOARD = [
@@ -12,8 +14,8 @@ const INIT_BOARD = [
   ['', '', ''],
 ];
 
-const firstPlayerSign = 'X';
-const secondPlayerSign = 'O';
+const firstPlayerSign = CROSS_SIGN;
+const secondPlayerSign = CIRCLE_SIGN;
 
 export const GameBar = () => {
   const [winner, setWinner] = useState<null | string>(null);
@@ -42,7 +44,7 @@ export const GameBar = () => {
   }, [board]);
 
   const handleStepPlayer = (col: string, rowIndex: number, columnIndex: number) => {
-    if (col !== '') {
+    if (winner ?? col !== '') {
       return;
     }
 
@@ -63,10 +65,13 @@ export const GameBar = () => {
 
   return (
     <div className='m-auto max-w-[800px] rounded-md border border-green-200 p-4 dark:border-green-700'>
-      <Board
-        board={board}
-        onStepPlayer={handleStepPlayer}
-      />
+      <div className='flex flex-col items-center justify-center'>
+        <WinnerTable winner={winner} />
+        <Board
+          board={board}
+          onStepPlayer={handleStepPlayer}
+        />
+      </div>
     </div>
   );
 };
