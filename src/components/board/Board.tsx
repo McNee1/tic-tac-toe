@@ -1,9 +1,17 @@
 import clsx from 'clsx/lite';
 
+import circle from '../../assets/circle.svg';
+import cross from '../../assets/cross.svg';
+
 interface BoardProps {
   board: string[][];
   onStepPlayer: (col: string, rowIndex: number, columnIndex: number) => void;
 }
+
+const SIGN_MAP: Record<string, string> = {
+  O: circle,
+  X: cross,
+};
 
 export const Board = ({ board, onStepPlayer }: BoardProps) => {
   return (
@@ -20,7 +28,14 @@ export const Board = ({ board, onStepPlayer }: BoardProps) => {
             onClick={() => {
               onStepPlayer(col, rowIndex, columnIndex);
             }}
-          ></div>
+          >
+            {col && (
+              <img
+                alt={col}
+                src={SIGN_MAP[col]}
+              />
+            )}
+          </div>
         ))
       )}
     </div>

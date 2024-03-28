@@ -23,6 +23,7 @@ module.exports = {
   plugins: ['react-refresh', 'perfectionist'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    '@typescript-eslint/prefer-for-of': 0,
     'no-restricted-syntax': [
       'error',
       {
