@@ -2,9 +2,10 @@ import clsx from 'clsx/lite';
 
 interface BoardProps {
   board: string[][];
+  onStepPlayer: (col: string, rowIndex: number, columnIndex: number) => void;
 }
 
-export const Board = ({ board }: BoardProps) => {
+export const Board = ({ board, onStepPlayer }: BoardProps) => {
   return (
     <div className='m-auto grid h-fit w-fit grid-cols-3 border border-gray-100 dark:border-0'>
       {board.map((row, rowIndex) =>
@@ -16,6 +17,9 @@ export const Board = ({ board }: BoardProps) => {
               'flex h-16 w-16 items-center justify-center border-gray-500'
             )}
             key={`${col}${String(columnIndex)}`}
+            onClick={() => {
+              onStepPlayer(col, rowIndex, columnIndex);
+            }}
           ></div>
         ))
       )}

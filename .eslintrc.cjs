@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
     'plugin:perfectionist/recommended-natural',
+    'plugin:eqeqeq-fix/recommended',
     'prettier',
   ],
   parserOptions: {
@@ -22,5 +23,12 @@ module.exports = {
   plugins: ['react-refresh', 'perfectionist'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'no-restricted-syntax': [
+      'error',
+      {
+        selector: 'ExportDefaultDeclaration',
+        message: 'Prefer named exports',
+      },
+    ],
   },
 };
