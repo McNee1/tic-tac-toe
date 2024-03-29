@@ -1,4 +1,5 @@
 import { Board } from '@/components/board/Board';
+import { ScoreCount } from '@/components/score-count/ScoreCount';
 import { WinnerTable } from '@/components/winner-table/WinnerTable';
 import { checkDraw } from '@/utils/check-draw';
 import { checkHorizontal } from '@/utils/check-horizontal';
@@ -6,12 +7,19 @@ import { checkLeftDiagonal } from '@/utils/check-left-diagonal';
 import { checkRightDiagonal } from '@/utils/check-right-diagonal';
 import { checkVertical } from '@/utils/check-vertical';
 import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/const';
+import { getClassForCircle, getClassForCross } from '@/utils/get-score-count-class';
 import { useCallback, useEffect, useState } from 'react';
+
+import circle from '../assets/circle.svg';
+import cross from '../assets/cross.svg';
 
 const firstPlayerSign = CROSS_SIGN;
 const secondPlayerSign = CIRCLE_SIGN;
 
 export const GameBar = () => {
+  const [crossWinCount, setCrossWinCount] = useState<number>(0);
+  const [circleWinCount, setCircleWinCount] = useState<number>(0);
+
   const [winner, setWinner] = useState<null | string>(null);
   const [winnerPositions, setWinnerPositions] = useState<null | number[][]>([]);
 
@@ -71,8 +79,29 @@ export const GameBar = () => {
     console.log(positions, winner, winnerPositions);
   }, [checkWinner, currStepCount]);
 
+  useEffect(() => {
+    if (winner === firstPlayerSign) {
+      setCrossWinCount((prev) => prev + 1);
+    }
+    if (winner === secondPlayerSign) {
+      setCircleWinCount((prev) => prev + 1);
+    }
+  }, [winner]);
+
   return (
     <div className='flex flex-col items-center justify-center'>
+      <div className='inline-flex gap-x-4'>
+        <ScoreCount
+          className={getClassForCross(winner, currStepCount, CROSS_SIGN)}
+          signImg={cross}
+          winCount={crossWinCount}
+        />
+        <ScoreCount
+          className={getClassForCircle(winner, currStepCount, CIRCLE_SIGN)}
+          signImg={circle}
+          winCount={circleWinCount}
+        />
+      </div>
       <WinnerTable winner={winner} />
       <Board
         board={board}
