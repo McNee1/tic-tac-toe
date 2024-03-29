@@ -1,4 +1,5 @@
 import { Board } from '@/components/board/Board';
+import { DarkMode } from '@/components/dark-mode/DarkMode';
 import { ScoreCount } from '@/components/score-count/ScoreCount';
 import { WinnerTable } from '@/components/winner-table/WinnerTable';
 import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/constants';
@@ -52,19 +53,18 @@ export const GameBar = () => {
   const checkWinner = useCallback(() => {
     checkDraw(board, setWinner);
 
-    const h = checkHorizontal(board, setWinner);
+    const hPos = checkHorizontal(board, setWinner);
 
-    const v = checkVertical(board, setWinner);
-    const ld = checkLeftDiagonal(board, setWinner);
+    const vPos = checkVertical(board, setWinner);
+    const ldPos = checkLeftDiagonal(board, setWinner);
 
-    const rd = checkRightDiagonal(board, setWinner);
+    const rdPos = checkRightDiagonal(board, setWinner);
 
-    const winnerPositions = h ?? v ?? ld ?? rd;
+    const winnerPositions = hPos ?? vPos ?? ldPos ?? rdPos;
 
     if (winnerPositions) {
       setWinnerPositions(winnerPositions);
     }
-    return null;
   }, [board]);
 
   const handleStepPlayer = (col: string, rowIndex: number, columnIndex: number) => {
@@ -96,36 +96,41 @@ export const GameBar = () => {
   }, [winner]);
 
   return (
-    <div className='flex flex-col items-center justify-center'>
-      <div className='inline-flex gap-x-4'>
-        <ScoreCount
-          className={getClassForCross(winner, currStepCount, CROSS_SIGN)}
-          signImg={cross}
-          winCount={crossWinCount}
-        />
-        <ScoreCount
-          className={getClassForCircle(winner, currStepCount, CIRCLE_SIGN)}
-          signImg={circle}
-          winCount={circleWinCount}
-        />
+    <>
+      <div className='mb-3 flex justify-between'>
+        <DarkMode />
       </div>
-      <WinnerTable
-        signMap={SIGN_MAP}
-        winner={winner}
-      />
-      <Board
-        board={board}
-        onStepPlayer={handleStepPlayer}
-        signMap={SIGN_MAP}
-        winnerPositions={winnerPositions}
-      />
+      <div className='flex flex-col items-center justify-center'>
+        <div className='inline-flex gap-x-4'>
+          <ScoreCount
+            className={getClassForCross(winner, currStepCount, CROSS_SIGN)}
+            signImg={cross}
+            winCount={crossWinCount}
+          />
+          <ScoreCount
+            className={getClassForCircle(winner, currStepCount, CIRCLE_SIGN)}
+            signImg={circle}
+            winCount={circleWinCount}
+          />
+        </div>
+        <WinnerTable
+          signMap={SIGN_MAP}
+          winner={winner}
+        />
+        <Board
+          board={board}
+          onStepPlayer={handleStepPlayer}
+          signMap={SIGN_MAP}
+          winnerPositions={winnerPositions}
+        />
 
-      <button
-        className='dark:text-green-500: mt-3 text-sm font-medium text-green-700 hover:text-green-800'
-        onClick={handleResetGame}
-      >
-        Reset game
-      </button>
-    </div>
+        <button
+          className='dark:text-green-500: mt-3 text-sm font-medium text-green-700 hover:text-green-800'
+          onClick={handleResetGame}
+        >
+          Reset game
+        </button>
+      </div>
+    </>
   );
 };
