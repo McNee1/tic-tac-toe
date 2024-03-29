@@ -64,14 +64,13 @@ export const GameBar = () => {
   }, [checkWinner, currStepCount]);
 
   return (
-    <div className='m-auto max-w-[800px] rounded-md border border-green-200 p-4 dark:border-green-700'>
-      <div className='flex flex-col items-center justify-center'>
-        <WinnerTable winner={winner} />
-        <Board
-          board={board}
-          onStepPlayer={handleStepPlayer}
-        />
-      </div>
+    <div className='flex flex-col items-center justify-center'>
+      <WinnerTable winner={winner} />
+      <Board
+        board={board}
+        onStepPlayer={handleStepPlayer}
+        winnerPositions={winnerPositions}
+      />
     </div>
   );
 };
