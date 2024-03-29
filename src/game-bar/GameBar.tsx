@@ -8,22 +8,30 @@ import { checkVertical } from '@/utils/check-vertical';
 import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/const';
 import { useCallback, useEffect, useState } from 'react';
 
-const INIT_BOARD = [
-  ['', '', ''],
-  ['', '', ''],
-  ['', '', ''],
-];
-
 const firstPlayerSign = CROSS_SIGN;
 const secondPlayerSign = CIRCLE_SIGN;
 
 export const GameBar = () => {
   const [winner, setWinner] = useState<null | string>(null);
-  const [winnerPositions, setWinnerPositions] = useState<number[][]>([]);
+  const [winnerPositions, setWinnerPositions] = useState<null | number[][]>([]);
 
   const [currStepCount, setCurrStepCount] = useState<number>(0);
 
-  const [board, setField] = useState<string[][]>(INIT_BOARD);
+  const [board, setField] = useState<string[][]>([
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', ''],
+  ]);
+
+  const handleResetGame = () => {
+    setWinner(null);
+    setWinnerPositions(null);
+    setField([
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ]);
+  };
 
   const checkWinner = useCallback(() => {
     checkDraw(board, setWinner);
@@ -71,6 +79,13 @@ export const GameBar = () => {
         onStepPlayer={handleStepPlayer}
         winnerPositions={winnerPositions}
       />
+
+      <button
+        className='dark:text-green-500: mt-3 text-sm font-medium text-green-700 hover:text-green-800'
+        onClick={handleResetGame}
+      >
+        Reset game
+      </button>
     </div>
   );
 };

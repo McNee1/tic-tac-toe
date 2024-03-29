@@ -7,7 +7,7 @@ import cross from '../../assets/cross.svg';
 interface BoardProps {
   board: string[][];
   onStepPlayer: (col: string, rowIndex: number, columnIndex: number) => void;
-  winnerPositions: number[][];
+  winnerPositions: null | number[][];
 }
 
 const SIGN_MAP: Record<string, string> = {
