@@ -1,21 +1,14 @@
-import { getWinnerBgClass } from '@/utils/get-winner-bg-class';
+import { getWinnerBgClass } from '@/utils/lib';
 import clsx from 'clsx/lite';
-
-import circle from '../../assets/circle.svg';
-import cross from '../../assets/cross.svg';
 
 interface BoardProps {
   board: string[][];
   onStepPlayer: (col: string, rowIndex: number, columnIndex: number) => void;
+  signMap: Record<string, string>;
   winnerPositions: null | number[][];
 }
 
-const SIGN_MAP: Record<string, string> = {
-  O: circle,
-  X: cross,
-};
-
-export const Board = ({ board, onStepPlayer, winnerPositions }: BoardProps) => {
+export const Board = ({ board, onStepPlayer, signMap, winnerPositions }: BoardProps) => {
   return (
     <div className='m-auto grid h-fit w-fit grid-cols-3 border border-gray-100 dark:border-0'>
       {board.map((row, rowIndex) =>
@@ -35,7 +28,7 @@ export const Board = ({ board, onStepPlayer, winnerPositions }: BoardProps) => {
             {col && (
               <img
                 alt={col}
-                src={SIGN_MAP[col]}
+                src={signMap[col]}
               />
             )}
           </div>

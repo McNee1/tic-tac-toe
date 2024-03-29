@@ -1,13 +1,16 @@
 import { Board } from '@/components/board/Board';
 import { ScoreCount } from '@/components/score-count/ScoreCount';
 import { WinnerTable } from '@/components/winner-table/WinnerTable';
-import { checkDraw } from '@/utils/check-draw';
-import { checkHorizontal } from '@/utils/check-horizontal';
-import { checkLeftDiagonal } from '@/utils/check-left-diagonal';
-import { checkRightDiagonal } from '@/utils/check-right-diagonal';
-import { checkVertical } from '@/utils/check-vertical';
-import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/const';
-import { getClassForCircle, getClassForCross } from '@/utils/get-score-count-class';
+import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/constants';
+import {
+  checkDraw,
+  checkHorizontal,
+  checkLeftDiagonal,
+  checkRightDiagonal,
+  checkVertical,
+  getClassForCircle,
+  getClassForCross,
+} from '@/utils/lib';
 import { useCallback, useEffect, useState } from 'react';
 
 import circle from '../assets/circle.svg';
@@ -15,6 +18,11 @@ import cross from '../assets/cross.svg';
 
 const firstPlayerSign = CROSS_SIGN;
 const secondPlayerSign = CIRCLE_SIGN;
+
+const SIGN_MAP: Record<string, string> = {
+  [firstPlayerSign]: cross,
+  [secondPlayerSign]: circle,
+};
 
 export const GameBar = () => {
   const [crossWinCount, setCrossWinCount] = useState<number>(0);
@@ -75,8 +83,7 @@ export const GameBar = () => {
   };
 
   useEffect(() => {
-    const positions = checkWinner();
-    console.log(positions, winner, winnerPositions);
+    checkWinner();
   }, [checkWinner, currStepCount]);
 
   useEffect(() => {
@@ -102,10 +109,14 @@ export const GameBar = () => {
           winCount={circleWinCount}
         />
       </div>
-      <WinnerTable winner={winner} />
+      <WinnerTable
+        signMap={SIGN_MAP}
+        winner={winner}
+      />
       <Board
         board={board}
         onStepPlayer={handleStepPlayer}
+        signMap={SIGN_MAP}
         winnerPositions={winnerPositions}
       />
 

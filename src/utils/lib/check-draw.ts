@@ -1,4 +1,4 @@
-import { DRAW } from './const';
+import { DRAW } from '../constants';
 
 export const checkDraw = (board: string[][], setWinner: (s: string) => void) => {
   let isDraw = true;

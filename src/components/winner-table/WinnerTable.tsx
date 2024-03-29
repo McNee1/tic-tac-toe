@@ -1,10 +1,11 @@
-// import { CIRCLE_SIGN, DRAW } from '@/utils/const';
-import { CIRCLE_SIGN, DRAW } from '@/utils/const';
+import { DRAW } from '@/utils/constants/const';
 
-import circle from '../../assets/circle.svg';
-import cross from '../../assets/cross.svg';
+interface WinnerTableProps {
+  signMap: Record<string, string>;
+  winner: null | string;
+}
 
-export const WinnerTable = ({ winner }: { winner: null | string }) => {
+export const WinnerTable = ({ signMap, winner }: WinnerTableProps) => {
   return (
     <>
       {winner && (
@@ -17,7 +18,7 @@ export const WinnerTable = ({ winner }: { winner: null | string }) => {
               <img
                 alt={winner}
                 className='h-6 w-6'
-                src={winner === CIRCLE_SIGN ? circle : cross}
+                src={signMap[winner]}
               />
             </>
           )}

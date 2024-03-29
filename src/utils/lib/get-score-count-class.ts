@@ -1,4 +1,4 @@
-import { CIRCLE_SIGN, CROSS_SIGN, DRAW } from './const';
+import { CIRCLE_SIGN, CROSS_SIGN, DRAW } from '../constants';
 
 const BORDER_ClASS = 'border-2 border-green-500';
 
