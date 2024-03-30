@@ -1,12 +1,17 @@
+import clsx from 'clsx/lite';
+
 interface ToggleProps {
   checked: boolean;
+  className?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   text: string;
 }
 
-export const Toggle = ({ checked, onChange, text }: ToggleProps) => {
+export const Toggle = ({ checked, className, onChange, text }: ToggleProps) => {
   return (
-    <label className='relative inline-flex cursor-pointer items-center'>
+    <label
+      className={clsx('relative inline-flex cursor-pointer items-center', className)}
+    >
       <input
         checked={checked}
         className='peer sr-only'

@@ -9,16 +9,21 @@ interface BoardProps {
 }
 
 export const Board = ({ board, onStepPlayer, signMap, winnerPositions }: BoardProps) => {
+  const rightBorder = (columnIndex: number, lgth: number) =>
+    columnIndex !== lgth - 1 && 'border-r-2';
+
+  const bottomBorder = (rowIndex: number, lgth: number) =>
+    rowIndex !== lgth - 1 && 'border-b-2';
   return (
     <div className='m-auto grid h-fit w-fit grid-cols-3 border border-gray-100 dark:border-0'>
       {board.map((row, rowIndex) =>
         row.map((col, columnIndex) => (
           <div
             className={clsx(
-              columnIndex !== row.length - 1 && 'border-r-2',
-              rowIndex !== row.length - 1 && 'border-b-2',
-              'flex h-16 w-16 items-center justify-center border-gray-500',
-              getWinnerBgClass(winnerPositions, rowIndex, columnIndex)
+              rightBorder(columnIndex, row.length),
+              bottomBorder(rowIndex, row.length),
+              getWinnerBgClass(winnerPositions, rowIndex, columnIndex),
+              'flex h-16 w-16 items-center justify-center border-gray-500'
             )}
             key={`${col}${String(columnIndex)}`}
             onClick={() => {
