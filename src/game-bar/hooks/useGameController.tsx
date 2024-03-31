@@ -24,8 +24,10 @@ export const useGameController = () => {
     checkDraw(board, setWinner);
 
     const hPos = checkHorizontal(board, setWinner);
+    console.log(hPos);
 
     const vPos = checkVertical(board, setWinner);
+    console.log(vPos);
     const ldPos = checkLeftDiagonal(board, setWinner);
 
     const rdPos = checkRightDiagonal(board, setWinner);
@@ -34,7 +36,9 @@ export const useGameController = () => {
 
     if (winnerPositions) {
       setWinnerPositions(winnerPositions);
+      return true;
     }
+    return false;
   }, [board]);
 
   const handleStepPlayer = (col: string, rowIndex: number, columnIndex: number) => {
@@ -69,9 +73,12 @@ export const useGameController = () => {
 
   return {
     board,
+    checkWinner,
     currStepCount,
     handleResetGame,
     handleStepPlayer,
+    setCurrStepCount,
+    setField,
     winner,
     winnerPositions,
   };

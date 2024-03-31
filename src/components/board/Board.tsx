@@ -3,7 +3,7 @@ import clsx from 'clsx/lite';
 
 interface BoardProps {
   board: string[][];
-  onStepPlayer: (col: string, rowIndex: number, columnIndex: number) => void;
+  onStepPlayer: ((col: string, rowIndex: number, columnIndex: number) => void) | null;
   signMap: Record<string, string>;
   winnerPositions: null | number[][];
 }
@@ -27,7 +27,7 @@ export const Board = ({ board, onStepPlayer, signMap, winnerPositions }: BoardPr
             )}
             key={`${col}${String(columnIndex)}`}
             onClick={() => {
-              onStepPlayer(col, rowIndex, columnIndex);
+              onStepPlayer === null || onStepPlayer(col, rowIndex, columnIndex);
             }}
           >
             {col && (

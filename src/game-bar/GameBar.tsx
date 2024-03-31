@@ -1,12 +1,14 @@
 import { Board } from '@/components/board/Board';
 import { DarkMode } from '@/components/dark-mode/DarkMode';
 import { ScoreCount } from '@/components/score-count/ScoreCount';
+import { Toggle } from '@/components/toggle/Toggle';
 import { WinnerTable } from '@/components/winner-table/WinnerTable';
 import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/constants';
 import { getClassForCircle, getClassForCross } from '@/utils/lib';
 
 import circle from '../assets/circle.svg';
 import cross from '../assets/cross.svg';
+import { useBotStep } from './hooks/useBotStep';
 import { useGameController } from './hooks/useGameController';
 import { useScoreCount } from './hooks/useScoreCount';
 
@@ -18,12 +20,23 @@ const SIGN_MAP: Record<string, string> = {
 export const GameBar = () => {
   const {
     board,
+    checkWinner,
     currStepCount,
     handleResetGame,
     handleStepPlayer,
+    setCurrStepCount,
+    setField,
     winner,
     winnerPositions,
   } = useGameController();
+
+  const { isBotActive, isBotStepping, setIsBotActive } = useBotStep(
+    currStepCount,
+    board,
+    setCurrStepCount,
+    setField,
+    checkWinner
+  );
 
   const { scoreWinCount } = useScoreCount(winner);
 
@@ -31,6 +44,13 @@ export const GameBar = () => {
     <>
       <div className='mb-3 flex justify-between'>
         <DarkMode />
+        <Toggle
+          checked={isBotActive}
+          onChange={(e) => {
+            setIsBotActive(e.target.checked);
+          }}
+          text='Play with bot'
+        />
       </div>
       <div className='flex flex-col items-center justify-center'>
         <div className='inline-flex gap-x-4'>
@@ -51,7 +71,7 @@ export const GameBar = () => {
         />
         <Board
           board={board}
-          onStepPlayer={handleStepPlayer}
+          onStepPlayer={isBotStepping ? null : handleStepPlayer}
           signMap={SIGN_MAP}
           winnerPositions={winnerPositions}
         />
