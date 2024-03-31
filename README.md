@@ -1,30 +1,35 @@
-# React + TypeScript + Vite
+## Project Name & Pitch
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tic-tac-toe
 
-Currently, two official plugins are available:
+It's a simple tic-tac-toe game in React
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation and Setup Instructions
 
-## Expanding the ESLint configuration
+Installation:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+`yarn`
 
-- Configure the top-level `parserOptions` property like this:
+To Start Server:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+`yarn dev`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+To Launches the linter:
+
+`yarn lint`
+
+## Technologies used
+
+- TypeScript
+- React JS
+- Tailwind
+
+## Description
+
+Tic-tac-toe is a classic game for two players. This React implementation of the game offers the following features:
+
+- Game for two players (person versus person)
+- Playing against a bot
+- Tracks game progress and displays current player
+- Determining the winner and displaying the winning combination
+- Ability to restart the game and start a new one
