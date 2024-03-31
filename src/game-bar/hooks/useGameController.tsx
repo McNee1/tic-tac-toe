@@ -1,4 +1,4 @@
-import { CIRCLE_SIGN, CROSS_SIGN } from '@/utils/constants';
+import { CIRCLE_SIGN, CROSS_SIGN, SIGN_POSITION } from '@/utils/constants';
 import {
   checkDraw,
   checkHorizontal,
@@ -14,7 +14,7 @@ export const useGameController = () => {
 
   const [currStepCount, setCurrStepCount] = useState<number>(0);
 
-  const [board, setField] = useState<string[][]>([
+  const [board, setBoard] = useState<string[][]>([
     ['', '', ''],
     ['', '', ''],
     ['', '', ''],
@@ -23,21 +23,24 @@ export const useGameController = () => {
   const checkWinner = useCallback(() => {
     checkDraw(board, setWinner);
 
-    const hPos = checkHorizontal(board, setWinner);
-    console.log(hPos);
+    const horizontalPositions = checkHorizontal(board);
+    const verticalPositions = checkVertical(board);
+    const leftDiagonalPositions = checkLeftDiagonal(board);
+    const rightDiagonalPositions = checkRightDiagonal(board);
 
-    const vPos = checkVertical(board, setWinner);
-    console.log(vPos);
-    const ldPos = checkLeftDiagonal(board, setWinner);
-
-    const rdPos = checkRightDiagonal(board, setWinner);
-
-    const winnerPositions = hPos ?? vPos ?? ldPos ?? rdPos;
+    const winnerPositions =
+      horizontalPositions ??
+      verticalPositions ??
+      leftDiagonalPositions ??
+      rightDiagonalPositions;
 
     if (winnerPositions) {
+      const [col, row] = winnerPositions[SIGN_POSITION];
+      setWinner(board[col][row]);
       setWinnerPositions(winnerPositions);
       return true;
     }
+
     return false;
   }, [board]);
 
@@ -46,7 +49,7 @@ export const useGameController = () => {
       return;
     }
 
-    setField((prevField) => {
+    setBoard((prevField) => {
       const copyField = [...prevField];
       copyField[rowIndex][columnIndex] =
         currStepCount % 2 === 0 ? CROSS_SIGN : CIRCLE_SIGN;
@@ -60,7 +63,7 @@ export const useGameController = () => {
     setWinner(null);
     setWinnerPositions(null);
     setCurrStepCount(0);
-    setField([
+    setBoard([
       ['', '', ''],
       ['', '', ''],
       ['', '', ''],
@@ -77,8 +80,8 @@ export const useGameController = () => {
     currStepCount,
     handleResetGame,
     handleStepPlayer,
+    setBoard,
     setCurrStepCount,
-    setField,
     winner,
     winnerPositions,
   };

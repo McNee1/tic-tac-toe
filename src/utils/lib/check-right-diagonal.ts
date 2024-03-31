@@ -1,5 +1,5 @@
-export const checkRightDiagonal = (board: string[][], setWinner: (s: string) => void) => {
-  const winnerPositions = [];
+export const checkRightDiagonal = (board: string[][]) => {
+  let winnerPositions = [];
   const tmp = board[0][board.length - 1];
 
   let winner = true;
@@ -8,6 +8,7 @@ export const checkRightDiagonal = (board: string[][], setWinner: (s: string) => 
     const diagonal = board[i][board.length - 1 - i];
 
     if (tmp !== diagonal || tmp === '') {
+      winnerPositions = [];
       winner = false;
       break;
     }
@@ -16,7 +17,6 @@ export const checkRightDiagonal = (board: string[][], setWinner: (s: string) => 
     }
   }
   if (winner) {
-    setWinner(tmp);
     return winnerPositions;
   }
 };

@@ -8,12 +8,13 @@ interface BoardProps {
   winnerPositions: null | number[][];
 }
 
-export const Board = ({ board, onStepPlayer, signMap, winnerPositions }: BoardProps) => {
-  const rightBorder = (columnIndex: number, lgth: number) =>
-    columnIndex !== lgth - 1 && 'border-r-2';
+const rightBorder = (columnIndex: number, lgth: number) =>
+  columnIndex !== lgth - 1 && 'border-r-2';
 
-  const bottomBorder = (rowIndex: number, lgth: number) =>
-    rowIndex !== lgth - 1 && 'border-b-2';
+const bottomBorder = (rowIndex: number, lgth: number) =>
+  rowIndex !== lgth - 1 && 'border-b-2';
+
+export const Board = ({ board, onStepPlayer, signMap, winnerPositions }: BoardProps) => {
   return (
     <div className='m-auto grid h-fit w-fit grid-cols-3 border border-gray-100 dark:border-0'>
       {board.map((row, rowIndex) =>

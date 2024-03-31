@@ -1,5 +1,5 @@
-export const checkHorizontal = (board: string[][], setWinner: (s: string) => void) => {
-  const winnerPositions = [];
+export const checkHorizontal = (board: string[][]) => {
+  let winnerPositions = [];
 
   for (let i = 0; i < board.length; i++) {
     const row = board[i];
@@ -9,6 +9,7 @@ export const checkHorizontal = (board: string[][], setWinner: (s: string) => voi
 
     for (let j = 0; j < row.length; j++) {
       if (tmp !== row[j] || tmp === '') {
+        winnerPositions = [];
         winner = false;
         break;
       }
@@ -17,7 +18,6 @@ export const checkHorizontal = (board: string[][], setWinner: (s: string) => voi
       }
     }
     if (winner) {
-      setWinner(tmp);
       return winnerPositions;
     }
   }

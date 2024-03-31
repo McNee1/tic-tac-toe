@@ -1,4 +1,5 @@
 import { Board } from '@/components/board/Board';
+import { Button } from '@/components/button/Button';
 import { DarkMode } from '@/components/dark-mode/DarkMode';
 import { ScoreCount } from '@/components/score-count/ScoreCount';
 import { Toggle } from '@/components/toggle/Toggle';
@@ -24,8 +25,8 @@ export const GameBar = () => {
     currStepCount,
     handleResetGame,
     handleStepPlayer,
+    setBoard,
     setCurrStepCount,
-    setField,
     winner,
     winnerPositions,
   } = useGameController();
@@ -34,7 +35,7 @@ export const GameBar = () => {
     currStepCount,
     board,
     setCurrStepCount,
-    setField,
+    setBoard,
     checkWinner
   );
 
@@ -76,12 +77,12 @@ export const GameBar = () => {
           winnerPositions={winnerPositions}
         />
 
-        <button
-          className='dark:text-green-500: mt-3 text-sm font-medium text-green-700 hover:text-green-800'
+        <Button
+          className='mt-3 text-sm font-medium text-green-700 hover:text-green-800 dark:text-green-500'
           onClick={handleResetGame}
         >
           Reset game
-        </button>
+        </Button>
       </div>
     </>
   );

@@ -1,5 +1,5 @@
-export const checkVertical = (board: string[][], setWinner: (s: string) => void) => {
-  const winnerPositions = [];
+export const checkVertical = (board: string[][]) => {
+  let winnerPositions = [];
 
   for (let i = 0; i < board.length; i++) {
     const tmp = board[0][i];
@@ -10,6 +10,7 @@ export const checkVertical = (board: string[][], setWinner: (s: string) => void)
       const col = board[j][i];
 
       if (tmp !== col || tmp === '') {
+        winnerPositions = [];
         winner = false;
         break;
       }
@@ -18,7 +19,6 @@ export const checkVertical = (board: string[][], setWinner: (s: string) => void)
       }
     }
     if (winner) {
-      setWinner(tmp);
       return winnerPositions;
     }
   }
